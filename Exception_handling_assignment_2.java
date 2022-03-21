@@ -11,25 +11,28 @@ public class Exception_handling_assignment_2 {
         }
     }
     static void validatePassword(String password) throws PasswordException {
-        if (password.length() < 10) {
+        if (password.length() < 5 || password.length()>10) {
             throw new PasswordException("Password length is less than 10");
         }
         boolean upperCheck = false;
         boolean lowerCheck = false;
         boolean digitCheck = false;
+        boolean specialCharacterCheck=false;
         for (char c : password.toCharArray()) {
             if (Character.isUpperCase(c))
             {
                 upperCheck = true;
             }
-
             if (Character.isLowerCase(c))
             {
                 lowerCheck = true;
             }
-            if (Character.isDigit(c))
-            {
+            if (Character.isDigit(c)) {
                 digitCheck = true;
+            }
+            if((password.contains("@")||(password.contains("#")||(password.contains("$")))))
+            {
+                specialCharacterCheck=true;
             }
         }
         if (!upperCheck) {
@@ -40,6 +43,10 @@ public class Exception_handling_assignment_2 {
         }
         if (!digitCheck) {
             throw new PasswordException ("There must a be a digit");
+        }
+        if(specialCharacterCheck==false)
+        {
+            throw new PasswordException("Special character missing");
         }
         System.out.println("Valid password.");
     }
